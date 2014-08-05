@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Cansat.Setebos.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Data">
+          <Key>
+            <PropertyRef Name="DataId" />
+          </Key>
+          <Property Name="DataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FlightId" Type="int" Nullable="false" />
+          <Property Name="Datetime" Type="datetime" />
+          <Property Name="Temperature" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="Latitude" Type="decimal" Precision="18" Scale="10" />
+          <Property Name="Longitude" Type="decimal" Precision="18" Scale="10" />
+          <Property Name="Altitude" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="Humidity" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="Presure" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="Voltage" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="CO" Type="decimal" Precision="18" Scale="10" />
+          <Property Name="InternalTemperature" Type="decimal" Precision="18" Scale="8" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="FlightId" />
+          </Key>
+          <Property Name="FlightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Data_Flights">
+          <End Role="Flights" Type="Self.Flights" Multiplicity="1" />
+          <End Role="Data" Type="Self.Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="FlightId" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="FlightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CansatSetebosDataStoreContainer">
+          <EntitySet Name="Data" EntityType="Self.Data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Data_Flights" Association="Self.FK_Data_Flights">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Cansat.Setebos.Data" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CansatEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="Data" EntityType="Cansat.Setebos.Data.Data" />
+          <EntitySet Name="Flights" EntityType="Cansat.Setebos.Data.Flights" />
+          <AssociationSet Name="FK_Data_Flights" Association="Cansat.Setebos.Data.FK_Data_Flights">
+            <End Role="Flights" EntitySet="Flights" />
+            <End Role="Data" EntitySet="Data" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Data">
+          <Key>
+            <PropertyRef Name="DataId" />
+          </Key>
+          <Property Name="DataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FlightId" Type="Int32" Nullable="false" />
+          <Property Name="Datetime" Type="DateTime" Precision="3" />
+          <Property Name="Temperature" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="Altitude" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="Humidity" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="Presure" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="Voltage" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="CO" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="InternalTemperature" Type="Decimal" Precision="18" Scale="8" />
+          <NavigationProperty Name="Flights" Relationship="Cansat.Setebos.Data.FK_Data_Flights" FromRole="Data" ToRole="Flights" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="FlightId" />
+          </Key>
+          <Property Name="FlightId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Data" Relationship="Cansat.Setebos.Data.FK_Data_Flights" FromRole="Flights" ToRole="Data" />
+        </EntityType>
+        <Association Name="FK_Data_Flights">
+          <End Type="Cansat.Setebos.Data.Flights" Role="Flights" Multiplicity="1" />
+          <End Type="Cansat.Setebos.Data.Data" Role="Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flights">
+              <PropertyRef Name="FlightId" />
+            </Principal>
+            <Dependent Role="Data">
+              <PropertyRef Name="FlightId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CansatSetebosDataStoreContainer" CdmEntityContainer="CansatEntities" >
+          <EntitySetMapping Name="Data">
+            <EntityTypeMapping TypeName="Cansat.Setebos.Data.Data">
+              <MappingFragment StoreEntitySet="Data">
+                <ScalarProperty Name="InternalTemperature" ColumnName="InternalTemperature" />
+                <ScalarProperty Name="CO" ColumnName="CO" />
+                <ScalarProperty Name="Voltage" ColumnName="Voltage" />
+                <ScalarProperty Name="Presure" ColumnName="Presure" />
+                <ScalarProperty Name="Humidity" ColumnName="Humidity" />
+                <ScalarProperty Name="Altitude" ColumnName="Altitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
+                <ScalarProperty Name="DataId" ColumnName="DataId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="Cansat.Setebos.Data.Flights">
+              <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="FlightId" ColumnName="FlightId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
