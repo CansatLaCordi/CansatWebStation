@@ -17,15 +17,15 @@ namespace Cansat.Setebos.Data
         public int DataId { get; set; }
         public int FlightId { get; set; }
         public Nullable<System.DateTime> Datetime { get; set; }
-        public Nullable<decimal> Temperature { get; set; }
-        public Nullable<decimal> Latitude { get; set; }
-        public Nullable<decimal> Longitude { get; set; }
-        public Nullable<decimal> Altitude { get; set; }
-        public Nullable<decimal> Humidity { get; set; }
-        public Nullable<decimal> Presure { get; set; }
-        public Nullable<decimal> Voltage { get; set; }
-        public Nullable<decimal> CO { get; set; }
-        public Nullable<decimal> InternalTemperature { get; set; }
+        public Nullable<double> Temperature { get; set; }
+        public Nullable<double> Latitude { get; set; }
+        public Nullable<double> Longitude { get; set; }
+        public Nullable<double> Altitude { get; set; }
+        public Nullable<double> Humidity { get; set; }
+        public Nullable<double> Presure { get; set; }
+        public Nullable<double> Voltage { get; set; }
+        public Nullable<double> CO { get; set; }
+        public Nullable<double> InternalTemperature { get; set; }
     
         public virtual Flights Flights { get; set; }
     }

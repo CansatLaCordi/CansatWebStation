@@ -1,0 +1,96 @@
+﻿@model Cansat.Setebos.Data.Data
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Data</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Flights.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Flights.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Datetime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Datetime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Temperature)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Temperature)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Latitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Latitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Longitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Longitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Altitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Altitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Humidity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Humidity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Presure)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presure)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Voltage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Voltage)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InternalTemperature)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InternalTemperature)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

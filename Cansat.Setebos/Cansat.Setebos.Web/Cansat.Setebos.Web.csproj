@@ -185,16 +185,45 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DataController.cs" />
     <Compile Include="Controllers\FlightsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IFlexigridController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\FlexigridModel.cs" />
+    <Compile Include="Models\FlexigridResponse.cs" />
+    <Compile Include="Models\FlexigridResponseRow.cs" />
+    <Compile Include="Models\FlightData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap\bootstrap.css" />
+    <Content Include="Content\bootstrap\bootstrap.min.css" />
+    <Content Include="Content\flexigrid.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\images\bg.gif" />
+    <Content Include="Content\images\btn-sprite.gif" />
+    <Content Include="Content\images\ddn.png" />
+    <Content Include="Content\images\dn.png" />
+    <Content Include="Content\images\fhbg.gif" />
+    <Content Include="Content\images\first.gif" />
+    <Content Include="Content\images\hl.png" />
+    <Content Include="Content\images\last.gif" />
+    <Content Include="Content\images\line.gif" />
+    <Content Include="Content\images\load.gif" />
+    <Content Include="Content\images\load.png" />
+    <Content Include="Content\images\magnifier.png" />
+    <Content Include="Content\images\next.gif" />
+    <Content Include="Content\images\prev.gif" />
+    <Content Include="Content\images\up.png" />
+    <Content Include="Content\images\uup.png" />
+    <Content Include="Content\images\wbg.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -251,7 +280,18 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Content\images\Thumbs.db" />
+    <Content Include="Content\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap\bootstrap.css.map" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\Team.jpg" />
+    <Content Include="Scripts\Data.js" />
+    <Content Include="Scripts\flexigrid.js" />
+    <Content Include="Scripts\FlightDetails.js" />
+    <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -266,6 +306,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\randomData.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -309,6 +350,13 @@
     <Content Include="Views\Flights\Create.cshtml" />
     <Content Include="Views\Flights\Edit.cshtml" />
     <Content Include="Views\Flights\Delete.cshtml" />
+    <Content Include="Views\Data\Index.cshtml" />
+    <Content Include="Views\Data\Details.cshtml" />
+    <Content Include="Views\Data\Create.cshtml" />
+    <Content Include="Views\Data\Edit.cshtml" />
+    <Content Include="Views\Data\Delete.cshtml" />
+    <Content Include="Views\Data\RandomData.cshtml" />
+    <Content Include="Views\Flights\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

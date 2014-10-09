@@ -1,0 +1,107 @@
+﻿@model IEnumerable<Cansat.Setebos.Data.Data>
+
+@{
+    ViewBag.Title = "Index";
+}
+@section headers{
+    
+<link href="~/Content/flexigrid.css" rel="stylesheet" />
+}
+@section scripts{
+    
+<script src="~/Scripts/flexigrid.js"></script>
+<script src="~/Scripts/Data.js"></script>
+    }
+<h2>Flight Data</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class="btn btn-default"})
+    @Html.ActionLink("Random Data", "RandomData", null, new { @class = "btn btn-default" })
+
+
+</p>
+@*<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Flights.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datetime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Temperature)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Latitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Longitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Altitude)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Humidity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Voltage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InternalTemperature)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Flights.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datetime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Temperature)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Latitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Longitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Altitude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Humidity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Presure)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Voltage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CO)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InternalTemperature)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DataId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DataId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DataId })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+
+<table class="flexm" style="display: none"></table>

@@ -20,7 +20,7 @@ namespace Cansat.Setebos.Data
         }
     
         public int FlightId { get; set; }
-        public Nullable<bool> Active { get; set; }
+        public bool Active { get; set; }
         public string Name { get; set; }
     
         public virtual ICollection<Data> Data { get; set; }

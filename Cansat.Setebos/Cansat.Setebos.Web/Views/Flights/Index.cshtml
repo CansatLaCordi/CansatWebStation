@@ -8,12 +8,12 @@
     
 }
 
-<h2>Index</h2>
+<h2>Flights</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",null, new { @class= "btn btn-default" })
 </p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FlightId)
@@ -39,13 +39,13 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FlightId }) |
-            @*@Html.ActionLink("Details", "Details", new { id=item.FlightId}) |*@
-            @Html.ActionLink("Delete", "Delete", new { id=item.FlightId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.FlightId }, new { @class= "btn btn-default" }) 
+            @Html.ActionLink("Details", "Details", new { id = item.FlightId }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.FlightId }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }
-
+    
 </table>
 
 <div class="pager">
@@ -55,3 +55,4 @@
     }
      (Total @count)
 </div>
+

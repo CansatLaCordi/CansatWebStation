@@ -1,0 +1,92 @@
+﻿@model Cansat.Setebos.Data.Data
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Data</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Flights.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Flights.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Datetime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Datetime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Temperature)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Temperature)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Latitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Latitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Longitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Longitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Altitude)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Altitude)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Humidity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Humidity)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Presure)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Presure)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Voltage)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Voltage)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CO)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CO)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.InternalTemperature)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.InternalTemperature)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DataId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

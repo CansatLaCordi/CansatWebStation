@@ -1,0 +1,118 @@
+﻿@model Cansat.Setebos.Data.Data
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Data</legend>
+
+        @Html.HiddenFor(model => model.DataId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FlightId, "Flights")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("FlightId", String.Empty)
+            @Html.ValidationMessageFor(model => model.FlightId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Datetime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Datetime)
+            @Html.ValidationMessageFor(model => model.Datetime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Temperature)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Temperature)
+            @Html.ValidationMessageFor(model => model.Temperature)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Latitude)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Latitude)
+            @Html.ValidationMessageFor(model => model.Latitude)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Longitude)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Longitude)
+            @Html.ValidationMessageFor(model => model.Longitude)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Altitude)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Altitude)
+            @Html.ValidationMessageFor(model => model.Altitude)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Humidity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Humidity)
+            @Html.ValidationMessageFor(model => model.Humidity)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Presure)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Presure)
+            @Html.ValidationMessageFor(model => model.Presure)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Voltage)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Voltage)
+            @Html.ValidationMessageFor(model => model.Voltage)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CO)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CO)
+            @Html.ValidationMessageFor(model => model.CO)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.InternalTemperature)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.InternalTemperature)
+            @Html.ValidationMessageFor(model => model.InternalTemperature)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -12,22 +12,22 @@
           <Property Name="DataId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FlightId" Type="int" Nullable="false" />
           <Property Name="Datetime" Type="datetime" />
-          <Property Name="Temperature" Type="decimal" Precision="18" Scale="8" />
-          <Property Name="Latitude" Type="decimal" Precision="18" Scale="10" />
-          <Property Name="Longitude" Type="decimal" Precision="18" Scale="10" />
-          <Property Name="Altitude" Type="decimal" Precision="18" Scale="8" />
-          <Property Name="Humidity" Type="decimal" Precision="18" Scale="8" />
-          <Property Name="Presure" Type="decimal" Precision="18" Scale="8" />
-          <Property Name="Voltage" Type="decimal" Precision="18" Scale="8" />
-          <Property Name="CO" Type="decimal" Precision="18" Scale="10" />
-          <Property Name="InternalTemperature" Type="decimal" Precision="18" Scale="8" />
+          <Property Name="Temperature" Type="float" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Longitude" Type="float" />
+          <Property Name="Altitude" Type="float" />
+          <Property Name="Humidity" Type="float" />
+          <Property Name="Presure" Type="float" />
+          <Property Name="Voltage" Type="float" />
+          <Property Name="CO" Type="float" />
+          <Property Name="InternalTemperature" Type="float" />
         </EntityType>
         <EntityType Name="Flights">
           <Key>
             <PropertyRef Name="FlightId" />
           </Key>
           <Property Name="FlightId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Active" Type="bit" />
+          <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Data_Flights">
@@ -69,15 +69,15 @@
           <Property Name="DataId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FlightId" Type="Int32" Nullable="false" />
           <Property Name="Datetime" Type="DateTime" Precision="3" />
-          <Property Name="Temperature" Type="Decimal" Precision="18" Scale="8" />
-          <Property Name="Latitude" Type="Decimal" Precision="18" Scale="10" />
-          <Property Name="Longitude" Type="Decimal" Precision="18" Scale="10" />
-          <Property Name="Altitude" Type="Decimal" Precision="18" Scale="8" />
-          <Property Name="Humidity" Type="Decimal" Precision="18" Scale="8" />
-          <Property Name="Presure" Type="Decimal" Precision="18" Scale="8" />
-          <Property Name="Voltage" Type="Decimal" Precision="18" Scale="8" />
-          <Property Name="CO" Type="Decimal" Precision="18" Scale="10" />
-          <Property Name="InternalTemperature" Type="Decimal" Precision="18" Scale="8" />
+          <Property Name="Temperature" Type="Double" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="Altitude" Type="Double" />
+          <Property Name="Humidity" Type="Double" />
+          <Property Name="Presure" Type="Double" />
+          <Property Name="Voltage" Type="Double" />
+          <Property Name="CO" Type="Double" />
+          <Property Name="InternalTemperature" Type="Double" />
           <NavigationProperty Name="Flights" Relationship="Cansat.Setebos.Data.FK_Data_Flights" FromRole="Data" ToRole="Flights" />
         </EntityType>
         <EntityType Name="Flights">
@@ -85,7 +85,7 @@
             <PropertyRef Name="FlightId" />
           </Key>
           <Property Name="FlightId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Active" Type="Boolean" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Data" Relationship="Cansat.Setebos.Data.FK_Data_Flights" FromRole="Flights" ToRole="Data" />
         </EntityType>
