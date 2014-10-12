@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
+using System.Diagnostics;
 
 namespace Cansat.PruebaSerial
 {
@@ -37,15 +38,21 @@ namespace Cansat.PruebaSerial
 
         static void Main(string[] args)
         {
+            Trace.WriteLine("Tracking iniciado", "[Info]");
+
             if (SerialPort.GetPortNames().Count() == 0)
             {
                 Console.WriteLine("No hay puertos!!");
                 Console.ReadKey();
+                return;
             }
+
             string port = GetPort();
             SerialPort ser = new SerialPort(port, 9600);
             ser.DataReceived += ser_DataReceived;
             ser.Open();
+            Trace.WriteLine("Tracking iniciado","[Info]");
+
             Console.ReadKey();
             ser.Close();
         }
