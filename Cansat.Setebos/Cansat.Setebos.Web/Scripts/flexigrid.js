@@ -1577,7 +1577,7 @@
 
 
 function FlexiFormatDate(celDiv, id) {
-    debugger;
+
     var sdate = celDiv.innerHTML;
     var date = new Date(parseInt(sdate.substr(6)));
     celDiv.innerHTML = date.toDateString();
