@@ -10,6 +10,7 @@ namespace Cansat.PruebaSerial
 {
     class Program
     {
+        static SerialParser sp;
         static string GetPort()
         {
             var ports = SerialPort.GetPortNames();
@@ -38,6 +39,7 @@ namespace Cansat.PruebaSerial
 
         static void Main(string[] args)
         {
+            sp = new SerialParser();
             Trace.WriteLine("Tracking iniciado", "[Info]");
 
             if (SerialPort.GetPortNames().Count() == 0)
@@ -62,6 +64,7 @@ namespace Cansat.PruebaSerial
             SerialPort ser = sender as SerialPort;
             var line = ser.ReadLine();
             Console.WriteLine(line);
+            sp.InsertLine(line);
         }
     }
 }
