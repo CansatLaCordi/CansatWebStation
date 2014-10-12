@@ -124,10 +124,10 @@ namespace Cansat.Setebos.Web.Controllers
 
         public ActionResult GetFlightData(int id = -1)
         {
-            if (id == -1 || !db.Flights.Any(f => f.FlightId == id))
-            {
-                return new HttpNotFoundResult();
-            }
+            //if (id == -1 || !db.Flights.Any(f => f.FlightId == id))
+            //{
+            //    return new HttpNotFoundResult();
+            //}
 
             var flight = db.Flights.Find(id);
             var data = flight.Data.OrderBy(f => f.Datetime).Select(f => new FlightData()
@@ -144,7 +144,7 @@ namespace Cansat.Setebos.Web.Controllers
                 Presure = f.Presure,
                 Temperature = f.Temperature,
                 Voltage = f.Voltage
-            });
+            }).Take(5000);
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 

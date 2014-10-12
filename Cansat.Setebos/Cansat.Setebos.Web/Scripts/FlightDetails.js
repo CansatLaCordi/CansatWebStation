@@ -26,7 +26,7 @@
             })
         },
         getMap: function () {
-            page.map = new Microsoft.Maps.Map(document.getElementById('mapContainer'), { showDashboard: false });
+            page.map = new Microsoft.Maps.Map(document.getElementById('mapContainer'), { showDashboard: false, credentials: 'AiY3dqw6wravTPdlQ7Jp__suONS-ntyfwrJwXuyY1RCPHyEhBrW0ySAabd9-U1gm' });
         },
         start: function () {
             if (page.state == false) {
