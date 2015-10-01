@@ -17,7 +17,7 @@ namespace Cansat.Setebos.Web.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "Acerca de CANSAT SETEBOS";
 
             return View();
         }

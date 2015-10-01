@@ -1,0 +1,38 @@
+﻿<RibbonWindow x:Class="Cansat.Station.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cansat.Station"
+        xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
+        mc:Ignorable="d" 
+        
+        Title="Cansat Station" Height="350" Width="525" ToolTip="Cansat Station" Closing="RibbonWindow_Closing">
+    <Grid>
+        <Ribbon  Title="Cansat Station" >
+           
+            <RibbonTab Header="Inicio" >
+                <RibbonGroup>
+
+                    <RibbonButton Margin="1,1,7,1" Width="76"  Label="Iniciar" Command="{Binding StartListeningCommand}"></RibbonButton>
+                    <RibbonButton Margin="1,1,7,1" Width="76" Label="Detener" Command="{Binding StopListeningCommand}" ></RibbonButton>
+                </RibbonGroup>
+            </RibbonTab>
+            <RibbonTab Header="Monitor de actividad">
+
+            </RibbonTab>
+            <RibbonTab Header="Configuracion" >
+
+            </RibbonTab>
+        </Ribbon>
+        <Grid Margin="0,149,0,0" IsManipulationEnabled="True" OverridesDefaultStyle="True" >
+            <TextBox Text="{Binding MeasureLogText}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23" IsReadOnly="True" ></TextBox>
+        </Grid>
+        <StatusBar Height="23" VerticalAlignment="Bottom">
+            <StatusBarItem>Cansat Setebos</StatusBarItem>
+            <StatusBarItem>
+                <ProgressBar IsIndeterminate="True" Height="13" Width="420"></ProgressBar>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</RibbonWindow>

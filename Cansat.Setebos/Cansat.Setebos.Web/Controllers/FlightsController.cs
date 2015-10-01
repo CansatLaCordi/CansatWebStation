@@ -173,6 +173,15 @@ namespace Cansat.Setebos.Web.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult Map(int id = -1) {
+            var model = db.Flights.Find(id);
+            return View(model);
+        }
+        public ActionResult GetLocations(int id = -1) {
+            var locations = db.Data.Where(d => d.FlightId == id).OrderBy( d => d.Datetime).Select(d => new { d.Latitude, d.Longitude });
+            return Json(locations);
+        }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

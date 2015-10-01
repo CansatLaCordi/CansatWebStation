@@ -39,9 +39,10 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.FlightId }, new { @class= "btn btn-default" }) 
-            @Html.ActionLink("Details", "Details", new { id = item.FlightId }, new { @class = "btn btn-default" }) 
-            @Html.ActionLink("Delete", "Delete", new { id = item.FlightId }, new { @class = "btn btn-default" })
+            @*@Html.ActionLink("Edit", "Edit", new { id = item.FlightId }, new { @class= "btn btn-default" })*@ 
+            @Html.ActionLink("Details", "Details", new { id = item.FlightId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Map", "Map", new { id = item.FlightId }, new { @class = "btn btn-default" }) 
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.FlightId }, new { @class = "btn btn-default" })*@
         </td>
     </tr>
 }

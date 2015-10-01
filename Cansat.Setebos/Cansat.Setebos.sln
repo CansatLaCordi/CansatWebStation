@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cansat.Setebos.Web", "Cansat.Setebos.Web\Cansat.Setebos.Web.csproj", "{E78A94F1-1583-43D1-9ADF-649F699BD275}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cansat.Setebos.Data", "Cansat.Setebos.Data\Cansat.Setebos.Data.csproj", "{DE568A29-C4FA-44D8-B5AA-BD98ADB2EEE2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cansat.PruebaSerial", "Cansat.PruebaSerial\Cansat.PruebaSerial.csproj", "{8F6AD1C2-01D5-4FF4-AEAA-BF665173CC0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cansat.Station", "Cansat.Station\Cansat.Station.csproj", "{65D1CE45-F20D-4FBB-9287-F63891A6ED81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{8F6AD1C2-01D5-4FF4-AEAA-BF665173CC0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F6AD1C2-01D5-4FF4-AEAA-BF665173CC0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F6AD1C2-01D5-4FF4-AEAA-BF665173CC0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65D1CE45-F20D-4FBB-9287-F63891A6ED81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D1CE45-F20D-4FBB-9287-F63891A6ED81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D1CE45-F20D-4FBB-9287-F63891A6ED81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D1CE45-F20D-4FBB-9287-F63891A6ED81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
