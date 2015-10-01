@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Cansat.Station.Core
 {
-    class RandomMeasureMonitor : IMeasureMonitor
+    public class RandomMeasureMonitor : IMeasureMonitor
     {
         bool listening;
         Thread monitorThread ;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Cansat.Station.Core
 {
 
-    interface IMeasureMonitor
+    public interface IMeasureMonitor
     {
         bool Listening { get; }
         event EventHandler<MeasureEventArgs> MeasureReceived;

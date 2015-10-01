@@ -26,12 +26,20 @@
             </RibbonTab>
         </Ribbon>
         <Grid Margin="0,149,0,0" IsManipulationEnabled="True" OverridesDefaultStyle="True" >
-            <TextBox Text="{Binding MeasureLogText}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23" IsReadOnly="True" ></TextBox>
+            <TabControl>
+                <TabItem Header="Console" >
+                    <TextBox Text="{Binding MeasureLogText}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23" IsReadOnly="True" ></TextBox>
+
+                </TabItem>
+                <TabItem Header="Datos">
+                    <DataGrid ItemsSource="{Binding MeasureData, Mode=OneWay}" IsReadOnly="True" ></DataGrid>
+                </TabItem>
+            </TabControl>
         </Grid>
         <StatusBar Height="23" VerticalAlignment="Bottom">
             <StatusBarItem>Cansat Setebos</StatusBarItem>
             <StatusBarItem>
-                <ProgressBar IsIndeterminate="True" Height="13" Width="420"></ProgressBar>
+                <ProgressBar IsIndeterminate="True" Height="13" Width="420" Visibility="Hidden"></ProgressBar>
             </StatusBarItem>
         </StatusBar>
     </Grid>

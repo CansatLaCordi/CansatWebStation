@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cansat.Station.Core
 {
-    class MeasureEventArgs: EventArgs
+    public class MeasureEventArgs: EventArgs
     {
         public Measure Measure { get; set; }
 

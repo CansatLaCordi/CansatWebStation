@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AdrfrankLibrary.Core;
 using System.Windows.Input;
+using System.Collections.ObjectModel;
+using Cansat.Station.Core;
+using Cansat.Station.Utility;
 
 namespace Cansat.Station.VM
 {
@@ -37,10 +40,13 @@ namespace Cansat.Station.VM
 
         }
 
+        public MTObservableCollection<Measure> MeasureData { get; set; }
+
         public MainWindowViewModel() {
             MeasureLogText = "";
             monitor = new Core.RandomMeasureMonitor("Dev1");
             monitor.MeasureReceived += Monitor_MeasureReceived;
+            MeasureData = new MTObservableCollection<Measure>();
         }
 
         public void StartListening() {
@@ -50,9 +56,10 @@ namespace Cansat.Station.VM
             monitor.EndListening();
         }
 
-        private void Monitor_MeasureReceived(object sender, Core.MeasureEventArgs e)
+        protected void Monitor_MeasureReceived(object sender, Core.MeasureEventArgs e)
         {
             MeasureLogText += e.Measure.ToString() + "\n";
+            MeasureData.Add(e.Measure);
         }
     }
 }
