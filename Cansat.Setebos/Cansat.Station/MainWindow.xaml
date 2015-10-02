@@ -1,45 +1,80 @@
-﻿<RibbonWindow x:Class="Cansat.Station.MainWindow"
+﻿<RibbonWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cansat.Station"
         xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Cansat.Station.MainWindow"
         mc:Ignorable="d" 
         
         Title="Cansat Station" Height="350" Width="525" ToolTip="Cansat Station" Closing="RibbonWindow_Closing">
+    <RibbonWindow.Resources>
+        <System:Double x:Key="Alto_boton">50</System:Double>
+    </RibbonWindow.Resources>
     <Grid>
         <Ribbon  Title="Cansat Station" >
-           
-            <RibbonTab Header="Inicio" >
-                <RibbonGroup>
 
-                    <RibbonButton Margin="1,1,7,1" Width="76"  Label="Iniciar" Command="{Binding StartListeningCommand}"></RibbonButton>
-                    <RibbonButton Margin="1,1,7,1" Width="76" Label="Detener" Command="{Binding StopListeningCommand}" ></RibbonButton>
+            <RibbonTab Header="Inicio" >
+                <RibbonGroup Header="Monitor de Mediciones">
+                    <RibbonButton  Label="Iniciar" LargeImageSource="Icons/StepForwardNormal.png"  IsEnabled="{Binding EnableStart}"  Command="{Binding StartListeningCommand}" >
+                    </RibbonButton>
+                    <RibbonButton Label="Detener" LargeImageSource="Icons/Stop1NormalRed.png" IsEnabled="{Binding EnableStop}"  Command="{Binding StopListeningCommand}"  >
+                    </RibbonButton>
+
+                </RibbonGroup>
+                <RibbonGroup Header="Vuelos">
+                    <RibbonComboBox IsEditable="True" SelectionBoxWidth="100" Label="Vuelo"
+						VerticalAlignment="Center"   >
+                        <RibbonGallery 
+							SelectedValuePath="Name"  SelectedItem="{Binding SelectedFlight,Mode=TwoWay}"
+							MaxColumnCount="2">
+                            <RibbonGalleryCategory  ItemsSource="{Binding ActiveFlights}">
+
+                                <RibbonGalleryCategory.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </RibbonGalleryCategory.ItemTemplate>
+
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                </RibbonGroup>
+                <RibbonGroup Header="Puerto Serial">
+                    <RibbonComboBox IsEditable="True" SelectionBoxWidth="100" Label="Puerto serial"
+						VerticalAlignment="Center"   >
+                        <RibbonGallery 
+							SelectedValuePath="Name"  SelectedItem="{Binding SelectedSerialPort}"
+							MaxColumnCount="2">
+                            <RibbonGalleryCategory  ItemsSource="{Binding SerialPorts}">
+
+                            </RibbonGalleryCategory>
+                        </RibbonGallery>
+                    </RibbonComboBox>
+                    <RibbonButton Label="Refrescar Puertos" LargeImageSource="Icons/Refresh-icon.png" Command="{Binding RefreshSerialPortCommand}">
+                        
+                    </RibbonButton>
                 </RibbonGroup>
             </RibbonTab>
-            <RibbonTab Header="Monitor de actividad">
-
-            </RibbonTab>
-            <RibbonTab Header="Configuracion" >
-
-            </RibbonTab>
+            <RibbonTab Header="Monitor de actividad"/>
+            <RibbonTab Header="Configuracion" />
         </Ribbon>
         <Grid Margin="0,149,0,0" IsManipulationEnabled="True" OverridesDefaultStyle="True" >
             <TabControl>
                 <TabItem Header="Console" >
-                    <TextBox Text="{Binding MeasureLogText}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23" IsReadOnly="True" ></TextBox>
+                    <TextBox Text="{Binding MeasureLogText}" VerticalScrollBarVisibility="Auto" Margin="0,0,0,23" IsReadOnly="True" />
 
                 </TabItem>
                 <TabItem Header="Datos">
-                    <DataGrid ItemsSource="{Binding MeasureData, Mode=OneWay}" IsReadOnly="True" ></DataGrid>
+                    <DataGrid ItemsSource="{Binding MeasureData, Mode=OneWay}" IsReadOnly="True" />
                 </TabItem>
             </TabControl>
         </Grid>
         <StatusBar Height="23" VerticalAlignment="Bottom">
-            <StatusBarItem>Cansat Setebos</StatusBarItem>
+            <StatusBarItem Content="Cansat Setebos"/>
             <StatusBarItem>
-                <ProgressBar IsIndeterminate="True" Height="13" Width="420" Visibility="Hidden"></ProgressBar>
+                <ProgressBar IsIndeterminate="True" Height="13" Width="420" Visibility="Hidden"/>
             </StatusBarItem>
         </StatusBar>
     </Grid>

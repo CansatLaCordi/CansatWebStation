@@ -29,7 +29,7 @@ namespace Cansat.Station
         {
             InitializeComponent();
             ViewModel = new VM.MainWindowViewModel();
-            ViewModel.StartListening();            
+           // ViewModel.StartListening();            
         }
 
         private void RibbonWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

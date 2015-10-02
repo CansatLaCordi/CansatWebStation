@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Francisco\Documents\Projects\Cansat\CansatWebStation\Cansat.Setebos\Cansat.Setebos.Data\Entities.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Proyectos\Cansat\CansatWebStation\Cansat.Setebos\Cansat.Setebos.Data\Entities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

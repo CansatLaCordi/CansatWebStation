@@ -14,7 +14,7 @@ namespace Cansat.Station.Core
         public float InternalTemperature { get; set; }
         public float Preasure { get; set; }
         public float Altitude { get; set; }
-        public double Latitud { get; set; }
+        public double Latitude { get; set; }
         public double Longitude { get; set; }
         public float Speed { get; set; }
         public float BarometricAltitude { get; set; }
@@ -32,7 +32,7 @@ namespace Cansat.Station.Core
                 InternalTemperature,
                 Preasure,
                 Altitude,
-                Latitud,
+                Latitude,
                 Longitude,
                 Speed,
                 BarometricAltitude,

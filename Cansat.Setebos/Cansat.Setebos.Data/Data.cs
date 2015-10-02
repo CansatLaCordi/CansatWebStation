@@ -26,6 +26,10 @@ namespace Cansat.Setebos.Data
         public Nullable<double> Voltage { get; set; }
         public Nullable<double> CO { get; set; }
         public Nullable<double> InternalTemperature { get; set; }
+        public Nullable<double> PM10 { get; set; }
+        public Nullable<double> Speed { get; set; }
+        public Nullable<double> BarometricAltitude { get; set; }
+        public Nullable<bool> Ejected { get; set; }
     
         public virtual Flights Flights { get; set; }
     }

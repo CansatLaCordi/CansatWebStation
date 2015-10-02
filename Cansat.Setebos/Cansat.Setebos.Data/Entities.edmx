@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Cansat.Setebos.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Cansat.Setebos.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Data">
           <Key>
             <PropertyRef Name="DataId" />
@@ -21,6 +21,10 @@
           <Property Name="Voltage" Type="float" />
           <Property Name="CO" Type="float" />
           <Property Name="InternalTemperature" Type="float" />
+          <Property Name="PM10" Type="float" />
+          <Property Name="Speed" Type="float" />
+          <Property Name="BarometricAltitude" Type="float" />
+          <Property Name="Ejected" Type="bit" />
         </EntityType>
         <EntityType Name="Flights">
           <Key>
@@ -79,6 +83,10 @@
           <Property Name="CO" Type="Double" />
           <Property Name="InternalTemperature" Type="Double" />
           <NavigationProperty Name="Flights" Relationship="Cansat.Setebos.Data.FK_Data_Flights" FromRole="Data" ToRole="Flights" />
+          <Property Name="PM10" Type="Double" />
+          <Property Name="Speed" Type="Double" />
+          <Property Name="BarometricAltitude" Type="Double" />
+          <Property Name="Ejected" Type="Boolean" />
         </EntityType>
         <EntityType Name="Flights">
           <Key>
@@ -110,6 +118,10 @@
           <EntitySetMapping Name="Data">
             <EntityTypeMapping TypeName="Cansat.Setebos.Data.Data">
               <MappingFragment StoreEntitySet="Data">
+                <ScalarProperty Name="Ejected" ColumnName="Ejected" />
+                <ScalarProperty Name="BarometricAltitude" ColumnName="BarometricAltitude" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="PM10" ColumnName="PM10" />
                 <ScalarProperty Name="InternalTemperature" ColumnName="InternalTemperature" />
                 <ScalarProperty Name="CO" ColumnName="CO" />
                 <ScalarProperty Name="Voltage" ColumnName="Voltage" />
