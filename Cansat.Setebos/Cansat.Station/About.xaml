@@ -1,0 +1,19 @@
+﻿<Window x:Class="Cansat.Station.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cansat.Station"
+        mc:Ignorable="d"
+        Title="Acerca de" Height="377" Width="518" ResizeMode="NoResize">
+    <StackPanel>
+        <TextBlock FontWeight="Bold" TextAlignment="Center" Margin="10,10,10,0" FontSize="16" Foreground="#FFB00505">Setebos Station v1.0</TextBlock>
+        <Image Source="Icons/setebos.jpg" Margin="10,0"></Image>
+        <TextBlock Margin="10,0" >
+           Desarrollada por Equipo Setebos. Octubre 2015
+            <LineBreak></LineBreak>
+            Contacto: <Hyperlink NavigateUri="mailto:adrfrank@outlook.com" RequestNavigate="Hyperlink_RequestNavigate" >Adrian Gonzalez</Hyperlink>
+        </TextBlock>
+
+    </StackPanel>
+</Window>

@@ -30,6 +30,7 @@ namespace Cansat.Station.Core
         public RandomMeasureMonitor()
         {
             monitorThread = new Thread(new ThreadStart(Listen));
+            monitorThread.SetApartmentState(ApartmentState.STA);
         }
         public RandomMeasureMonitor(string deviceId)
         {
@@ -68,13 +69,14 @@ namespace Cansat.Station.Core
                     MeasureDate = DateTime.Now,
                     Altitude = 1500 + rdn.Next(50),
                     BarometricAltitude = 1500 + rdn.Next(50),
-                    BatteryVoltage = 4.5f + (float)rdn.NextDouble(),
+                    BatteryVoltage = 4.5f + rdn.NextDouble(),
                     DeviceId = this.DeviceId,
                     Ejected = rdn.Next(2) == 1,
-                    ExternalTemperature = 21f + (float)rdn.NextDouble() * 2f,
-                    Humidity = 60f + (float)rdn.NextDouble() * 10f,
-                    InternalTemperature = 21f + (float)rdn.NextDouble() * 2f,
-
+                    ExternalTemperature = 21f + rdn.NextDouble() * 2f,
+                    Humidity = 60f + rdn.NextDouble() * 10f,
+                    InternalTemperature = 21f + rdn.NextDouble() * 2f,
+                    Latitude = 20.5713651 +rdn.NextDouble()*5,
+                    Longitude = -103.6362335 + rdn.NextDouble()*5
 
                 };
 

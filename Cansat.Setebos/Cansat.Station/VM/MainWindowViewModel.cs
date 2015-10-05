@@ -10,6 +10,13 @@ using Cansat.Station.Core;
 using Cansat.Station.Utility;
 using Cansat.Setebos.Data;
 using System.Diagnostics;
+using GMap.NET;
+using GMap.NET.WindowsPresentation;
+using System.Windows.Controls;
+using System.Windows;
+using GMap.NET.MapProviders;
+using System.Windows.Media.Imaging;
+using System.Threading;
 
 namespace Cansat.Station.VM
 {
@@ -17,6 +24,49 @@ namespace Cansat.Station.VM
     {
         private string measureLogText;
         Core.IMeasureMonitor monitor;
+        private string selectedSerialPort;
+        Flights selectedFlight;
+        CansatEntities db = new CansatEntities();
+        private ICommand startListeningCommand;
+        private ICommand stopListeningCommand;
+        private ICommand saveFlightsCommand;
+        private ICommand removeSelectedGridFlightCommand;
+        private ICommand refreshSerialPortCommand;
+        private ICommand clearConsoleCommand;
+        private ICommand loadDbMeasuresCommand;
+
+        public ICommand StartListeningCommand
+        {
+            get { return startListeningCommand == null ? startListeningCommand = new ActionCommand(StartListening) : startListeningCommand; }
+        }
+        public ICommand StopListeningCommand
+        {
+            get { return stopListeningCommand == null ? stopListeningCommand = new ActionCommand(StopListening) : stopListeningCommand; }
+
+        }
+        public ICommand RefreshSerialPortCommand
+        {
+            get { return refreshSerialPortCommand == null ? refreshSerialPortCommand = new ActionCommand(RefreshSerialPorts) : refreshSerialPortCommand; }
+        }
+        public ICommand SaveFlightsCommand
+        {
+            get { return saveFlightsCommand == null ? saveFlightsCommand = new ActionCommand(SaveFlights) : saveFlightsCommand; }
+        }
+        public ICommand RemoveSelectedGridFlightCommand
+        {
+            get
+            {
+                return removeSelectedGridFlightCommand == null ? removeSelectedGridFlightCommand = new ActionCommand(RemoveSelectedGridFlight) : removeSelectedGridFlightCommand;
+            }
+        }
+        public ICommand CleanConsoleCommand
+        {
+            get { return clearConsoleCommand == null ? clearConsoleCommand = new ActionCommand(ClearConsole) : clearConsoleCommand; }
+        }
+        public ICommand LoadDBMeasuresCommand
+        {
+            get { return loadDbMeasuresCommand == null ? loadDbMeasuresCommand = new ActionCommand(LoadDbMeasures) : loadDbMeasuresCommand; }
+        }
         public string MeasureLogText
         {
             get { return measureLogText; }
@@ -25,53 +75,68 @@ namespace Cansat.Station.VM
                 measureLogText = value;
                 this.OnPropertyChanged();
             }
-        }        
-        Flights selectedFlight;
-        CansatEntities db = new CansatEntities();
-        private ICommand startListeningCommand;
-        private ICommand stopListeningCommand;
-
-        public ICommand StartListeningCommand
-        {
-            get { return startListeningCommand == null ? startListeningCommand = new ActionCommand(StartListening) : startListeningCommand; }
         }
-
-        public ICommand StopListeningCommand
-        {
-            get { return stopListeningCommand == null ? stopListeningCommand = new ActionCommand(StopListening) : stopListeningCommand; }
-
-        }
-
-        private ICommand refreshSerialPortCommand;
-
-        public ICommand RefreshSerialPortCommand {
-            get { return refreshSerialPortCommand == null ? refreshSerialPortCommand = new ActionCommand(RefreshSerialPorts) : refreshSerialPortCommand; }
-        }
-
         public MTObservableCollection<Measure> MeasureData { get; set; }
-
         public ObservableCollection<Flights> ActiveFlights { get; set; }
-
         ObservableCollection<string> serialPorts;
-        public ObservableCollection<String> SerialPorts {
+        public ObservableCollection<String> SerialPorts
+        {
             get { return serialPorts; }
             set { serialPorts = value; OnPropertyChanged(); }
         }
-
-        private string selectedSerialPort;
-        public string SelectedSerialPort { get {
+        public string SelectedSerialPort
+        {
+            get
+            {
                 return selectedSerialPort;
-            } set{
-                if(value !=null){
+            }
+            set
+            {
+                if (value != null)
+                {
                     selectedSerialPort = value;
                     OnPropertyChanged();
                 }
-            } }
-
+            }
+        }
         public Flights SelectedFlight
         {
             get { return selectedFlight; }
-            set { if (value != null) { selectedFlight = value; OnPropertyChanged(); } Trace.WriteLine(value); }
+            set
+            {
+                if (value != null)
+                {
+                    selectedFlight = value;
+                    OnPropertyChanged();
+                    //Debug.WriteLine(value);
+                    LoadDbMeasures();
+                }
+            }
+        }
+        public Flights GridSelectedFlight { get; set; }
+        ObservableCollection<Flights> flights;
+        public ObservableCollection<Flights> Flights
+        {
+            get
+            {
+                if (flights == null) LoadFlights();
+                return flights;
+            }
+            private set { flights = value; OnPropertyChanged(); }
+        }
+
+        public MTObservableCollection<GMapMarker> Route { get; set; }
+
+        TabItem actualtab;
+        public TabItem ActualTab
+        {
+            get { return actualtab; }
+            set
+            {
+                actualtab = value;
+                OnPropertyChanged("MapTabVisibility");
+                OnPropertyChanged("VuelosTabVisibility");
+            }
         }
 
         public bool EnableStop
@@ -84,6 +149,22 @@ namespace Cansat.Station.VM
             get { return !monitor.Listening; }
         }
 
+        public Visibility MapTabVisibility
+        {
+            get
+            {
+                return ActualTab != null && ActualTab.Header.ToString() == "Mapa" ? Visibility.Visible : Visibility.Hidden;
+            }
+        }
+
+        public Visibility VuelosTabVisibility
+        {
+            get { return ActualTab != null && ActualTab.Header.ToString() == "Vuelos" ? Visibility.Visible : Visibility.Hidden; }
+        }
+
+        public List<GMapProvider> MapProviders { get; set; }
+
+
         public MainWindowViewModel()
         {
             MeasureLogText = "";
@@ -91,26 +172,42 @@ namespace Cansat.Station.VM
             monitor.MeasureReceived += Monitor_MeasureReceived;
             MeasureData = new MTObservableCollection<Measure>();
             ActiveFlights = new MTObservableCollection<Flights>();
-
+            Route = new MTObservableCollection<GMapMarker>();
+            MapProviders = GMapProviders.List;
             LoadActiveFlights();
         }
 
         void LoadActiveFlights()
         {
             var activeflights = db.Flights.Where(f => f.Active).ToList();
-            //ActiveFlights.Clear();
+            ActiveFlights.Clear();
             foreach (var f in activeflights)
             {
                 ActiveFlights.Add(f);
             }
-            if (activeflights.Count > 0) {
+            if (activeflights.Count > 0)
+            {
                 SelectedFlight = activeflights[0];
             }
 
         }
 
-        void RefreshSerialPorts() {
-            serialPorts = new ObservableCollection<string>(System.IO.Ports.SerialPort.GetPortNames());
+        void RefreshSerialPorts()
+        {
+            SerialPorts = new ObservableCollection<string>(System.IO.Ports.SerialPort.GetPortNames());
+        }
+
+        void RemoveSelectedGridFlight()
+        {
+            if (GridSelectedFlight != null)
+            {
+                db.Entry(GridSelectedFlight).State = System.Data.EntityState.Deleted;
+                Flights.Remove(GridSelectedFlight);
+                db.SaveChanges();
+                LoadFlights();
+            }
+
+
         }
 
         public void StartListening()
@@ -119,12 +216,14 @@ namespace Cansat.Station.VM
             OnPropertyChanged("EnableStart");
             OnPropertyChanged("EnableStop");
         }
+
         public void StopListening()
         {
             monitor.EndListening();
             OnPropertyChanged("EnableStart");
             OnPropertyChanged("EnableStop");
         }
+
         void SaveMeasure(Flights fligh, Measure measure)
         {
             Data d = new Data();
@@ -147,11 +246,86 @@ namespace Cansat.Station.VM
             db.SaveChanges();
 
         }
+
         protected void Monitor_MeasureReceived(object sender, Core.MeasureEventArgs e)
         {
             MeasureLogText += e.Measure.ToString() + "\n";
             MeasureData.Add(e.Measure);
             SaveMeasure(SelectedFlight, e.Measure);
+            AddPointFromMeasure(e.Measure);
+
+        }
+
+        void AddPointFromMeasure(Measure m, bool alertChange = true)
+        {
+            if (m.Latitude != null && m.Longitude != null)
+            {
+                var marker = new GMap.NET.WindowsPresentation.GMapMarker(new PointLatLng(m.Latitude.Value, m.Longitude.Value));
+                marker.Offset = new Point(0, 0);
+                marker.ZIndex = int.MaxValue;
+                Route.Add(marker);
+                //Route.Add(new GMap.NET.WindowsPresentation.GMapMarker(new GMap.NET.PointLatLng(20.5713651, -103.6362335)));
+                if (alertChange)
+                    OnPropertyChanged("Route");
+            }
+        }
+
+        void LoadFlights()
+        {
+            var f = db.Flights.ToList();
+            Flights = new ObservableCollection<Setebos.Data.Flights>(f);
+        }
+
+        void SaveFlights()
+        {
+            foreach (var item in Flights)
+            {
+                if (!db.Flights.Any(f => f.FlightId == item.FlightId))
+                    db.Flights.Add(item);
+                else
+                    db.Entry(item).State = System.Data.EntityState.Modified;
+            }
+            db.SaveChanges();
+            LoadActiveFlights();
+        }
+
+        void ClearConsole()
+        {
+            MeasureLogText = string.Empty;
+        }
+
+        void LoadDbMeasures()
+        {
+            DateTime thisInstant = DateTime.Now;
+            bool islistening = monitor.Listening;
+            monitor.EndListening();
+            var dbMeasures = db.Data.Where(d => d.FlightId == SelectedFlight.FlightId && d.Datetime <= thisInstant)
+                .Select(d => new Measure()
+                {
+                    Altitude = d.Altitude,
+                    BarometricAltitude = d.BarometricAltitude,
+                    BatteryVoltage = d.Voltage,
+                    Ejected = d.Ejected,
+                    ExternalTemperature = d.Temperature,
+                    Humidity = d.Humidity,
+                    InternalTemperature = d.InternalTemperature,
+                    Latitude = d.Latitude,
+                    Longitude = d.Longitude,
+                    MeasureDate = d.Datetime.Value,
+                    PM10 = d.PM10,
+                    Preasure = d.Presure,
+                    Speed = d.Speed
+                })
+                .OrderBy(m => m.MeasureDate);
+            MeasureData.Clear();
+            Route.Clear();
+            foreach (var m in dbMeasures)
+            {
+                MeasureData.Add(m);
+                AddPointFromMeasure(m);
+            }
+            if (islistening)
+                monitor.StartListening();
         }
 
         public void Dispose()

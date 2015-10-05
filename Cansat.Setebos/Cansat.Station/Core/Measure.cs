@@ -10,24 +10,23 @@ namespace Cansat.Station.Core
     {
         public string DeviceId { get; set; }
         public DateTime MeasureDate { get; set; }
-        public float ExternalTemperature { get; set; }
-        public float InternalTemperature { get; set; }
-        public float Preasure { get; set; }
-        public float Altitude { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
-        public float Speed { get; set; }
-        public float BarometricAltitude { get; set; }
-        public float Humidity { get; set; }
-        public float PM10 { get; set; }
-        public bool Ejected { get; set; }
-        public float BatteryVoltage { get; set; }
+        public double? ExternalTemperature { get; set; }
+        public double? InternalTemperature { get; set; }
+        public double? Preasure { get; set; }
+        public double? Altitude { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Speed { get; set; }
+        public double? BarometricAltitude { get; set; }
+        public double? Humidity { get; set; }
+        public double? PM10 { get; set; }
+        public bool? Ejected { get; set; }
+        public double? BatteryVoltage { get; set; }
 
         public override string ToString()
         {
-            return string.Format("[{0}] [{0}]: ExternalTemp:{2}, InternalTemp:{3}, Preasure:{4}, Altitude:{5}, Latitud:{6}, Longitude:{7}, Speed:{8}, BarometricAltitude:{9}, Humidity:{10}, PM10:{11}, Ejected:{12}, Battery:{13}",
+            return string.Format("[{0}] ExternalTemp:{1}, InternalTemp:{2}, Preasure:{3}, Altitude:{4}, Latitud:{5}, Longitude:{6}, Speed:{7}, BarometricAltitude:{8}, Humidity:{9}, PM10:{10}, Ejected:{11}, Battery:{12}",
                 MeasureDate,
-                DeviceId,
                 ExternalTemperature,
                 InternalTemperature,
                 Preasure,
