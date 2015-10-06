@@ -124,7 +124,9 @@ namespace Cansat.Station.VM
             }
             private set { flights = value; OnPropertyChanged(); }
         }
-
+        public Measure LastMeasure {
+            get { return MeasureData.LastOrDefault(); }
+        }
         public MTObservableCollection<GMapMarker> Route { get; set; }
 
         TabItem actualtab;
@@ -235,9 +237,9 @@ namespace Cansat.Station.VM
             d.InternalTemperature = measure.InternalTemperature;
             d.Latitude = measure.Latitude;
             d.Longitude = measure.Longitude;
-            d.Presure = measure.Preasure;
+            d.Presure = measure.Pressure;
             d.Temperature = measure.ExternalTemperature;
-            d.Voltage = measure.BatteryVoltage;
+            d.Voltage = measure.Voltage;
             d.Ejected = measure.Ejected;
             d.Speed = measure.Speed;
             d.BarometricAltitude = measure.BarometricAltitude;
@@ -253,7 +255,7 @@ namespace Cansat.Station.VM
             MeasureData.Add(e.Measure);
             SaveMeasure(SelectedFlight, e.Measure);
             AddPointFromMeasure(e.Measure);
-
+            OnPropertyChanged("LastMeasure");
         }
 
         void AddPointFromMeasure(Measure m, bool alertChange = true)
@@ -304,7 +306,7 @@ namespace Cansat.Station.VM
                 {
                     Altitude = d.Altitude,
                     BarometricAltitude = d.BarometricAltitude,
-                    BatteryVoltage = d.Voltage,
+                    Voltage = d.Voltage,
                     Ejected = d.Ejected,
                     ExternalTemperature = d.Temperature,
                     Humidity = d.Humidity,
@@ -313,7 +315,7 @@ namespace Cansat.Station.VM
                     Longitude = d.Longitude,
                     MeasureDate = d.Datetime.Value,
                     PM10 = d.PM10,
-                    Preasure = d.Presure,
+                    Pressure = d.Presure,
                     Speed = d.Speed
                 })
                 .OrderBy(m => m.MeasureDate);

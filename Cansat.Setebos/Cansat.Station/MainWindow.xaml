@@ -6,11 +6,15 @@
         xmlns:local="clr-namespace:Cansat.Station"
         xmlns:ribbon="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon"
         xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Data="clr-namespace:Cansat.Setebos.Data;assembly=Cansat.Setebos.Data" x:Class="Cansat.Station.MainWindow"
+        xmlns:sparrow="http://sparrowtoolkit.codeplex.com/wpf"
         mc:Ignorable="d" 
         
-        Title="Setebos Station" Height="540" Width="610" ToolTip="Cansat Station" Closing="RibbonWindow_Closing" Loaded="RibbonWindow_Loaded" Icon="Icons/antenna.ico">
+        Title="Setebos Station" Height="597" Width="889.833" ToolTip="Cansat Station" Closing="RibbonWindow_Closing" Loaded="RibbonWindow_Loaded" Icon="Icons/antenna.ico">
     <RibbonWindow.Resources>
         <System:Double x:Key="Alto_boton">50</System:Double>
+        <System:Double x:Key="HeightGauge">200</System:Double>
+        <Thickness x:Key="GaugeMargin">10</Thickness>
+        <System:Double x:Key="GaugeWidth">130</System:Double>
     </RibbonWindow.Resources>
     <Grid>
         <Ribbon  Title="Setebos Station" >
@@ -64,10 +68,10 @@
             </RibbonTab>
             <RibbonTab Header="Map" Visibility="{Binding MapTabVisibility}">
                 <RibbonGroup Header="Mapa">
-                    
+
                     <RibbonComboBox Label="Proveedor de mapas"  >
                         <RibbonGallery SelectionChanged="RibbonGallery_SelectionChanged">
-                            <RibbonGalleryCategory ItemsSource="{Binding MapProviders}" >                                
+                            <RibbonGalleryCategory ItemsSource="{Binding MapProviders}" >
                             </RibbonGalleryCategory>
                         </RibbonGallery>
                     </RibbonComboBox>
@@ -77,7 +81,9 @@
                                 <RibbonGalleryItem >
                                     <StackPanel>
                                         
-                                        --><!--<TextBlock>Marcador 1</TextBlock>--><!--
+                                        -->
+                    <!--<TextBlock>Marcador 1</TextBlock>-->
+                    <!--
                                     </StackPanel>
                                 </RibbonGalleryItem>
                             </RibbonGalleryCategory>
@@ -115,7 +121,31 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-            
+            <TabItem Header="Sumario">
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"  />
+                    </Grid.RowDefinitions>
+                    <sparrow:BulletGraph Grid.Column="0" Grid.Row="0" Orientation="Vertical" Margin="5"  Header="Temperatura Interna" HeaderPosition="Top"    Minimum="-20"  Maximum="50" Interval="10" MinorTickStep="1" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.InternalTemperature, Mode=OneWay}" LabelFormat="0 °C"   />
+                    <sparrow:BulletGraph Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="5"  Header="Temperatura Externa" HeaderPosition="Top"   Minimum="-20"  Maximum="50" Interval="10" MinorTickStep="1" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.ExternalTemperature, Mode=OneWay}" LabelFormat="0 °C"  />
+                    <sparrow:BulletGraph Grid.Column="2" Grid.Row="0" Orientation="Vertical" Margin="5"  Header="Altitud" HeaderPosition="Top"   Minimum="0" Maximum="4000" Interval="500" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.Altitude, Mode=OneWay}" LabelFormat="0 m"    />
+                    <sparrow:BulletGraph Grid.Column="3" Grid.Row="0" Orientation="Vertical" Margin="5"  Header="Altitud B." HeaderPosition="Top"   Minimum="0" Maximum="4000" Interval="500" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.BarometricAltitude, Mode=OneWay}"    />
+                    <sparrow:BulletGraph Grid.Column="4" Grid.Row="0" Orientation="Vertical" Margin="5"  Header="Presion" HeaderPosition="Top"   Minimum="0" Maximum="150" Interval="10" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.Pressure, Mode=OneWay}" LabelFormat="0 kPa"    />
+                    <sparrow:BulletGraph Grid.Column="0" Grid.Row="1" Orientation="Vertical" Margin="5"  Header="Velocidad" HeaderPosition="Top"   Minimum="0" Maximum="50" Interval="10" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.Speed, Mode=OneWay}" LabelFormat="0 m/s"    />
+                    <sparrow:BulletGraph Grid.Column="1" Grid.Row="1" Orientation="Vertical" Margin="5"  Header="Humedad" HeaderPosition="Top" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.Humidity, Mode=OneWay}" Interval="10" Maximum="100"    />
+                    <sparrow:BulletGraph Grid.Column="2" Grid.Row="1" Orientation="Vertical" Margin="5"  Header="PM10" HeaderPosition="Top"   Minimum="0" Maximum="1" Interval="0.1" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.PM10, Mode=OneWay}" LabelFormat="0 mg/m^3"    />
+                    <sparrow:BulletGraph Grid.Column="3" Grid.Row="1" Orientation="Vertical" Margin="5"  Header="Voltaje" HeaderPosition="Top"   Minimum="0" Maximum="10" Interval="1" MinorTickStep="5" PerformanceMeasureFill="Red" PerformanceMeasure="{Binding LastMeasure.Voltage, Mode=OneWay}" LabelFormat="0 V"    />
+                </Grid>
+            </TabItem>
         </TabControl>
         <StatusBar Height="23" VerticalAlignment="Bottom">
             <StatusBarItem Content="Cansat Setebos"/>

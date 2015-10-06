@@ -69,15 +69,18 @@ namespace Cansat.Station.Core
                     MeasureDate = DateTime.Now,
                     Altitude = 1500 + rdn.Next(50),
                     BarometricAltitude = 1500 + rdn.Next(50),
-                    BatteryVoltage = 4.5f + rdn.NextDouble(),
+                    Voltage = 4.5f + rdn.NextDouble(),
                     DeviceId = this.DeviceId,
                     Ejected = rdn.Next(2) == 1,
                     ExternalTemperature = 21f + rdn.NextDouble() * 2f,
                     Humidity = 60f + rdn.NextDouble() * 10f,
                     InternalTemperature = 21f + rdn.NextDouble() * 2f,
-                    Latitude = 20.5713651 +rdn.NextDouble()*5,
-                    Longitude = -103.6362335 + rdn.NextDouble()*5
-
+                    Latitude = 20.5713651 + rdn.NextDouble() * 5,
+                    Longitude = -103.6362335 + rdn.NextDouble() * 5,
+                    Pressure = 100 + rdn.NextDouble() * 10,
+                    Speed = 10 + rdn.NextDouble() * 10,
+                    PM10= rdn.NextDouble()
+                   
                 };
 
                 OnMeasureReceived(m);
