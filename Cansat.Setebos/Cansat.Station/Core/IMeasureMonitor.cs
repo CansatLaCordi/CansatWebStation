@@ -10,6 +10,9 @@ namespace Cansat.Station.Core
     public interface IMeasureMonitor
     {
         bool Listening { get; }
+
+        string SerialPortName { get; set; }
+
         event EventHandler<MeasureEventArgs> MeasureReceived;
         void StartListening();
         void EndListening();

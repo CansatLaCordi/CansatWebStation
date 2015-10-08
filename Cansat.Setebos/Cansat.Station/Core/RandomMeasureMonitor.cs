@@ -12,6 +12,8 @@ namespace Cansat.Station.Core
         bool listening;
         Thread monitorThread ;
         public string DeviceId { get; set; }
+
+        public string SerialPortName { get; set; }
         public bool Listening
         {
             get

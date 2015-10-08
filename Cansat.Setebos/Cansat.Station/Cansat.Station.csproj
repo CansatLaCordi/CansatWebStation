@@ -98,6 +98,7 @@
     <Compile Include="About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Core\SerialMeasureMonitor.cs" />
     <Compile Include="Utility\MTObservableCollection.cs" />
     <Compile Include="VM\MainWindowViewModel.cs" />
     <Page Include="About.xaml">

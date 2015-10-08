@@ -170,7 +170,7 @@ namespace Cansat.Station.VM
         public MainWindowViewModel()
         {
             MeasureLogText = "";
-            monitor = new Core.RandomMeasureMonitor("Dev1");
+            monitor = new SerialMeasureMonitor(SelectedSerialPort);
             monitor.MeasureReceived += Monitor_MeasureReceived;
             MeasureData = new MTObservableCollection<Measure>();
             ActiveFlights = new MTObservableCollection<Flights>();
@@ -196,7 +196,8 @@ namespace Cansat.Station.VM
 
         void RefreshSerialPorts()
         {
-            SerialPorts = new ObservableCollection<string>(System.IO.Ports.SerialPort.GetPortNames());
+            var names = System.IO.Ports.SerialPort.GetPortNames();
+            SerialPorts = new ObservableCollection<string>(names);
         }
 
         void RemoveSelectedGridFlight()
@@ -214,6 +215,7 @@ namespace Cansat.Station.VM
 
         public void StartListening()
         {
+            monitor.SerialPortName = SelectedSerialPort;
             monitor.StartListening();
             OnPropertyChanged("EnableStart");
             OnPropertyChanged("EnableStop");
@@ -228,24 +230,31 @@ namespace Cansat.Station.VM
 
         void SaveMeasure(Flights fligh, Measure measure)
         {
-            Data d = new Data();
-            d.Altitude = measure.Altitude;
-            d.CO = measure.PM10;
-            d.Datetime = measure.MeasureDate;
-            d.FlightId = fligh.FlightId;
-            d.Humidity = measure.Humidity;
-            d.InternalTemperature = measure.InternalTemperature;
-            d.Latitude = measure.Latitude;
-            d.Longitude = measure.Longitude;
-            d.Presure = measure.Pressure;
-            d.Temperature = measure.ExternalTemperature;
-            d.Voltage = measure.Voltage;
-            d.Ejected = measure.Ejected;
-            d.Speed = measure.Speed;
-            d.BarometricAltitude = measure.BarometricAltitude;
+            try
+            {
+                Data d = new Data();
+                d.Altitude = measure.Altitude;
+                d.CO = measure.PM10;
+                d.Datetime = measure.MeasureDate ?? DateTime.UtcNow;
+                d.FlightId = fligh.FlightId;
+                d.Humidity = measure.Humidity;
+                d.InternalTemperature = measure.InternalTemperature;
+                d.Latitude = measure.Latitude;
+                d.Longitude = measure.Longitude;
+                d.Presure = measure.Pressure;
+                d.Temperature = measure.ExternalTemperature;
+                d.Voltage = measure.Voltage;
+                d.Ejected = measure.Ejected;
+                d.Speed = measure.Speed;
+                d.BarometricAltitude = measure.BarometricAltitude;
 
-            db.Data.Add(d);
-            db.SaveChanges();
+                db.Data.Add(d);
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+            }
 
         }
 

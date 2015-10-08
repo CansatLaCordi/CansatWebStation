@@ -52,7 +52,7 @@
                     <RibbonComboBox IsEditable="True" SelectionBoxWidth="100" Label="Puerto serial"
 						VerticalAlignment="Center"   >
                         <RibbonGallery 
-							SelectedValuePath="Name"  SelectedItem="{Binding SelectedSerialPort}"
+							  SelectedItem="{Binding SelectedSerialPort,Mode=TwoWay}"
 							MaxColumnCount="2">
                             <RibbonGalleryCategory  ItemsSource="{Binding SerialPorts}"/>
                         </RibbonGallery>
